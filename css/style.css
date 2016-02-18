@@ -1,0 +1,44 @@
+@font-face{
+    font-family:Ubuntu;
+    font-style:normal;
+    font-weight:400;
+    src:local("Ubuntu"),
+        url(../fonts/ubuntu.ttf) format("truetype")
+}
+body{
+    font-family:Ubuntu;
+    padding-top:50px
+}
+
+.body{
+    margin: 10px 15px;    
+}
+
+.time{
+    background-color: limegreen;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.clock{
+    width: 200px;
+    height: 50px;    
+}
+form{
+    margin: 0 auto;
+}
+
+#scroll_textarea{
+    margin: 0 auto;
+    background: #fcf8e3;
+    width: 95%;
+    min-height: 500px;
+    font-size: 18px;
+    color: #286090;
+}
+
+.check{
+    margin: 0 auto;
+    width: 200px;
+}
