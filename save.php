@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require 'Scroll.php';
 $text = $_POST['scroll'];
 
@@ -11,5 +11,5 @@ if($_POST['check'] !== $date){
     $scroll = new Scroll($text);
     $result = $scroll->save() ? "success": "fail";
     $location = "Location: $result.php";
-    //header($location);
+    header($location);
 }

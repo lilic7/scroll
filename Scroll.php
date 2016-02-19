@@ -1,13 +1,15 @@
-﻿<?php
-class Scroll {    
-    const FILE_DEST = 'G:\\SCROLL\\scroll.txt';
-    const FILE_TEMP = 'G:\\SCROLL\\temp.txt';
+<?php
+include_once 'Config.php';
+class Scroll {
     private $new_content;
     private $old_content;
     
+    private $config;
+    
     function __construct($text) {
+        $this->config = new Config();
         $this->new_content = trim($text);
-        $this->old_content = file_get_contents(self::FILE_TEMP);
+        $this->old_content = file_get_contents($this->config->temp_file());
     }
     
     function is_New(){
@@ -16,10 +18,10 @@ class Scroll {
             
     function save(){
         if($this->is_New()){
-            file_put_contents(self::FILE_TEMP, $this->new_content);
+            file_put_contents($this->config->temp_file(), $this->new_content);
             $text = $this->toUpper()->removeEmptyRows();
             //$converted = mb_convert_encoding($text, "UTF-8");
-            file_put_contents(self::FILE_DEST, "\xEF\xBB\xBF".$text);
+            file_put_contents($this->config->scroll_file(), "\xEF\xBB\xBF".$text);
             return true;
         }else{
             return false;

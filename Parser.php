@@ -1,14 +1,19 @@
 <?php
-
+include_once 'Config.php';
 class Parser {
     const FILE_SOURCE = "//STORAGE-SERVER/storage/EMISIA/SCROLLS/scrolls.txt";
     const FILE_DEST = 'c:\\lilic\\scroll_dest\\scroll.txt';
     const FILE_TEMP = 'c:\\lilic\\scroll_dest\\temp.txt';
     private $text;
     private $err_message;
+    private $config;
+    
+    function __construct() {
+        $this->config = new Config();
+    }
 
     public function checkFiles(){
-        $files = [self::FILE_SOURCE, self::FILE_DEST, self::FILE_TEMP];
+        $files = [$this->config->scroll_file(), $this->config->temp_file()];
         foreach($files as $file){
             echo "$file STATUS - ";
             if(is_file($file)){
@@ -22,7 +27,7 @@ class Parser {
 
     function saveScroll($text){
         $this->text = trim($text);
-        $oldContent = file_get_contents(self::FILE_TEMP);
+        $oldContent = file_get_contents($this->config->temp_file());
         
         if(!$this->text){
             echo "Error: : : : :";
@@ -35,7 +40,7 @@ class Parser {
                 return NULL;
             }
         else {
-            file_put_contents(self::FILE_TEMP, $this->text);
+            file_put_contents($this->config->temp_file(), $this->text);
 
             //$this->modify($content);
             $this->writeToFile();
@@ -44,8 +49,8 @@ class Parser {
     }
 
     public function getUpdate(){
-        $this->text = file_get_contents(self::FILE_SOURCE);
-        $oldContent = file_get_contents(self::FILE_TEMP);
+        $this->text = file_get_contents($this->config->scroll_file());
+        $oldContent = file_get_contents($this->config->temp_file());
 
         if(!$this->text){
             echo "Error: : : : :";
@@ -58,7 +63,7 @@ class Parser {
                 return NULL;
             }
         else {
-            file_put_contents(self::FILE_TEMP, $this->text);
+            file_put_contents($this->config->temp_file(), $this->text);
 
             //$this->modify($content);
             $this->writeToFile();
@@ -98,7 +103,7 @@ class Parser {
 //    }
 //
     public function writeToFile(){                
-        file_put_contents(self::FILE_DEST, $this->text);
+        file_put_contents($this->config->scroll_file(), $this->text);
     }
 //
 //	private function modify($text){
